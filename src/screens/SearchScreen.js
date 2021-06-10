@@ -1,5 +1,5 @@
 import React ,{useState} from 'react'
-import {View,Text,StyleSheet} from 'react-native'
+import {View,Text,StyleSheet , ScrollView} from 'react-native'
 import SearchBar from '../components/SearchBar'
 import useResults from '../hooks/useResults'
 import ResultsList from '../components/ResultsList'
@@ -13,19 +13,20 @@ const SearchScreen = () => {
             return result.price === price
         })
     }
-
-    return <View>
+    //bununla view olmadan da birkac seyi tutabiliyoruz <View style = {{flex: 1}}> yazsaydik da olurdu ama view bazi durumlarda kisitlayabiliyor
+    return <>                              
         <SearchBar 
             myTerm={myTerm} 
             onTermChange={(newTerm) => setTerm(newTerm)}  //buraya sadece onTermChange = {setTerm} yapabilirdik
             onTermSubmit={() => searchApi(myTerm)}
         />
         {errorMessage ? <Text>{errorMessage}</Text> : null}
-        <Text>We have found {results.length} results</Text>
-        <ResultsList results={filterResultsByPrice('$')} title='Cost Effective'/>
-        <ResultsList results={filterResultsByPrice('$$')} title='Bit Pricier'/>
-        <ResultsList results={filterResultsByPrice('$$$$')} title='Big Spender'/>
-    </View>
+        <ScrollView showsVerticalScrollIndicator={false}>
+            <ResultsList results={filterResultsByPrice('$')} title = 'Cheap' />
+            <ResultsList results={filterResultsByPrice('$$')} title ='Bit Pricier' />
+            <ResultsList results={filterResultsByPrice('$$$$')} title ='Expensive' />
+        </ScrollView>
+    </> 
 }
 
 const styles = StyleSheet.create({})
