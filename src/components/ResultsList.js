@@ -11,8 +11,8 @@ const ResultsList= ({title, results,navigation}) => {
             horizontal= {true}  //sadece horizontal yazsamda true olurdu o ozellik
             data = {results}
             keyExtractor = {(result) => result.id}
-            renderItem={({item})=>{
-                return (<TouchableOpacity onPress = {() => navigation.navigate('ResultsShow')}>
+            renderItem={({item})=>{ //item dedigi sey 1 result flatlistteki herbiri icin item olarak erismeliyiz
+                return (<TouchableOpacity onPress = {() => navigation.navigate('ResultsShow', {id: item.id} )}>
                 <ResultsDetail result={item}/>
                 </TouchableOpacity>)
             }}
